@@ -24,6 +24,27 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+/** main API endpoint of this project
+ * should respond to "/api/whoami"
+ * should respond with:
+ *  ipaddress: "172.70.115.147"
+ *  language: "pl,en-US;q=0.7,en;q=0.3"
+ *  software: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0"
+ *  */ 
+app.get('/api/whoami', function(req, res) {
+  // get ip
+  const incomingIP = req.ip;
+
+  // get language
+  const incomingLanguage = req.headers['accept-language'];
+
+  // get software
+  const incomingSoftware = req.headers['user-agent'];
+
+  res.json({ipaddress: incomingIP, language: incomingLanguage, software: incomingSoftware})
+})
+
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
